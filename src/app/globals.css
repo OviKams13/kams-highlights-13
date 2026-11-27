@@ -1,0 +1,45 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens — a.ui-spec.md §1 (+ phase 2.4).
+ * Each --color-* token also creates Tailwind utilities, e.g. bg-bg, bg-surface,
+ * text-muted, border-line, bg-marker, text-danger.
+ */
+@theme {
+  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-doc: 'Times New Roman', Times, serif; /* preview fallback; the file keeps its own font */
+
+  --color-bg: #f3f3f1; /* app background around the page */
+  --color-surface: #ffffff; /* cards, toolbar */
+  --color-page: #ffffff; /* the document page */
+  --color-page-text: #111111; /* default document text (when the run has no colour) */
+  --color-line: #e2e2dd; /* borders, dividers */
+  --color-text: #1b1b1b; /* UI text */
+  --color-muted: #6b6b66; /* secondary text, dates, hints */
+  --color-accent: #808000; /* primary buttons, active states, logo "13" */
+  --color-accent-hover: #6b6b00;
+  --color-marker: #808000; /* highlight background = WPS Dark Yellow */
+  --color-marker-text: #000000; /* text on a highlight */
+  --color-gap-tint: rgb(128 128 0 / 0.33); /* tappable gap between two highlighted words */
+  --color-hover-tint: rgb(128 128 0 / 0.12); /* word hover, PC only */
+  --color-danger: #b3261e; /* delete, clear all */
+  --color-saved: #3f8f3f; /* "Saved" dot */
+
+  --radius-card: 10px; /* cards and buttons */
+  --radius-mark: 4px; /* highlights */
+}
+
+@layer base {
+  html,
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-ui);
+  }
+
+  /* No double-tap zoom and no 300 ms tap delay anywhere in the app. */
+  #root {
+    min-height: 100dvh;
+    touch-action: manipulation;
+  }
+}
