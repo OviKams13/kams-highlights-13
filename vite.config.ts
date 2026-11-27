@@ -13,22 +13,27 @@ export default defineConfig({
     globalSetup: ['./tests/global-setup.ts'],
     projects: [
       {
-        // Default: plain Node (src/core, src/docx, src/storage, tests/).
+        // Default: plain Node (src/core, src/storage, tests/).
         extends: true,
         test: {
           name: 'node',
           environment: 'node',
           include: ['src/**/*.test.{ts,tsx}', 'tests/**/*.test.ts'],
-          exclude: [...configDefaults.exclude, 'src/ui/**', 'src/app/**'],
+          exclude: [...configDefaults.exclude, 'src/docx/**', 'src/ui/**', 'src/app/**'],
         },
       },
       {
-        // React code runs in a simulated browser.
+        // Browser code runs in a simulated browser: React (src/ui, src/app) and the
+        // .docx reader, which uses the browser DOMParser (src/docx).
         extends: true,
         test: {
           name: 'dom',
           environment: 'jsdom',
-          include: ['src/ui/**/*.test.{ts,tsx}', 'src/app/**/*.test.{ts,tsx}'],
+          include: [
+            'src/docx/**/*.test.ts',
+            'src/ui/**/*.test.{ts,tsx}',
+            'src/app/**/*.test.{ts,tsx}',
+          ],
         },
       },
     ],
