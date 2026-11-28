@@ -12,6 +12,8 @@ export type DocModel = {
   name: string;
   /** Size of the file in bytes. */
   size: number;
+  /** The original file bytes: export copies the zip records from them. */
+  bytes: Uint8Array;
   /** The original package, never modified here. */
   zip: JSZip;
   /** Parsed word/document.xml. */

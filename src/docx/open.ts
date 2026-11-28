@@ -3,7 +3,7 @@
  * parse of word/document.xml, word/styles.xml and word/numbering.xml, then the
  * full in-memory model of ERD Part B.
  *
- * Nothing here changes the package: export (Phase 5) rewrites word/document.xml only.
+ * Nothing here changes the package: export (./export.ts) rewrites word/document.xml only.
  */
 import JSZip from 'jszip';
 import { tokenize } from '@/core/tokenize';
@@ -123,7 +123,8 @@ export async function openDocx(
   input: Blob | ArrayBuffer | Uint8Array,
   name: string,
 ): Promise<DocModel> {
-  const bytes = await toBytes(input);
+  // A private copy: the model keeps it for export, whatever the caller does with its buffer.
+  const bytes = new Uint8Array(await toBytes(input));
   const format = sniffFormat(bytes, name);
   if (format !== 'zip') throw new DocxOpenError(format);
 
@@ -149,5 +150,5 @@ export async function openDocx(
   const { elements, paragraphs } = buildParagraphModels(xml, styles, numbering);
   const blocks = buildBlocks(xml, elements);
 
-  return { id, name, size: bytes.length, zip, xml, styles, numbering, blocks, paragraphs };
+  return { id, name, size: bytes.length, bytes, zip, xml, styles, numbering, blocks, paragraphs };
 }

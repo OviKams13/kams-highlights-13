@@ -15,7 +15,8 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "fixtures": "node tests/fixtures/make-fixtures.ts"
+    "fixtures": "node tests/fixtures/make-fixtures.ts",
+    "export-sample": "node tests/scripts/export-sample.ts"
   },
   "dependencies": {
     "jszip": "^3.10.2",
